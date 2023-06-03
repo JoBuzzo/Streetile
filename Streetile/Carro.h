@@ -33,7 +33,7 @@ public:
 		}
 	}
 
-	virtual void colide(int &posX1, int &posY1) {
+	virtual void colide(Galinha &galinha) {
 		// Calcular as coordenadas dos cantos do carro
 		int carroEsq = posX;
 		int carroDir = posX + w;
@@ -42,14 +42,16 @@ public:
 
 
 		// Calcular as coordenadas dos cantos da galinha
-		int galinhaEsq = posX1;
-		int galinhaDir = posX1 + 32;
-		int galinhaTopo = posY1;
-		int galinhaBase = posY1 + 32;
+		int galinhaEsq = galinha.posX;
+		int galinhaDir = galinha.posX + 32;
+		int galinhaTopo = galinha.posY;
+		int galinhaBase = galinha.posY + 32;
 
 		if (carroEsq < galinhaDir && carroDir > galinhaEsq && carroTopo < galinhaBase && carroBase > galinhaTopo) {
-			posX1 = (WMAPA * BLOCKSIZE / 2) - 16;
-			posY1 = HMAPA * BLOCKSIZE - 64;
+			galinha.posX = (WMAPA * BLOCKSIZE / 2) - 16;
+			galinha.posY = HMAPA * BLOCKSIZE - 64;
+			galinha.loseLife();
+		
 		}
 	}
 

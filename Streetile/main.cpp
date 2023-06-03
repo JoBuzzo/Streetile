@@ -10,11 +10,6 @@
 #define SCREENWIDTH BLOCKSIZE*WMAPA
 #define SCREENHEIGHT BLOCKSIZE*25
 
-#include"Carro.h"
-#include"Fusca.h"
-
-enum KEYS { W, S, A, D };
-
 int mapa[HMAPA][WMAPA] = {
     { 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4 },
     { 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4 },
@@ -71,59 +66,10 @@ int mapa[HMAPA][WMAPA] = {
 };
 ALLEGRO_BITMAP* blocos[7] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 
-bool colideBorda(int &posX, int &posY) {
-    if (posX > WMAPA * BLOCKSIZE - 32) {
-        posX -= 2;
-        return true;
-    }
-    else if (posX < 0) {
-        posX += 2;
-        return true;
-    }
+#include"Galinha.h"
+#include"Carro.h"
+#include"Fusca.h"
 
-    if (posY < 0) {
-        posY += 2;
-        return true;
-    }
-    else if(posY > HMAPA * BLOCKSIZE -32){
-        posY -=2;
-        return true;
-    }
-    if (posY == BLOCKSIZE * 25 - 32) {
-        posY -= 2;
-        return true;
-    }
-
-    return false;
-}
-void subir(int x, int y, float &tela) {
-
-    int dx = x / BLOCKSIZE;
-    int dy = y / BLOCKSIZE;
-    int dx1 = (x + 25) / BLOCKSIZE;
-    int dy1 = (y + 25) / BLOCKSIZE;
-
-    if (mapa[dy][dx] == 6) {
-        tela += 25 * BLOCKSIZE;
-        for(dx = 0; dx < WMAPA; dx++)
-            mapa[dy][dx] = 4;
-    }
-    else if (mapa[dy][dx1] == 6) {
-        tela += 25 * BLOCKSIZE;
-        for (dx = 0; dx < WMAPA; dx++)
-            mapa[dy][dx] = 4;
-    }
-    else if (mapa[dy1][dx] == 6) {
-        tela += 25 * BLOCKSIZE;
-        for (dx = 0; dx < WMAPA; dx++)
-            mapa[dy][dx] = 4;
-    }
-    else if (mapa[dy1][dx1] == 6) {
-        tela += 25 * BLOCKSIZE;
-        for (dx = 0; dx < WMAPA; dx++)
-            mapa[dy][dx] = 4;
-    }
-}
 void DrawMap() {
     for (int i = 0; i < HMAPA; i++) {
         for (int j = 0; j < WMAPA; j++) {
@@ -157,28 +103,16 @@ int main()
     blocos[6] = al_load_bitmap("tiles/calcada_meio.png");
 
 
-    ALLEGRO_BITMAP* galinha = al_load_bitmap("sprites/galinha.png");
+    Galinha galinha;
     Fusca fusca;
-    fusca.sprite = al_load_bitmap("sprites/fusca.png");
-    fusca.DefaultDimension();
-    fusca.DefaultSpeed();
-    fusca.posX = 1;
-    fusca.posY = 41 * 32;
-    fusca.active = true;
-    fusca.left = true;
+
+
 
     ALLEGRO_TIMER* timer = al_create_timer(1.0/90.0);
     ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
     al_register_event_source(event_queue, al_get_display_event_source(display));
     al_register_event_source(event_queue, al_get_keyboard_event_source());
-
-    bool keys[4] = { false, false, false, false };
-
-    float frame = 1.f;
-    int current_frame_y = 0;
-    int posX = (WMAPA * BLOCKSIZE / 2) - 16;
-    int posY = HMAPA * BLOCKSIZE - 64;
 
     ALLEGRO_TRANSFORM transf;
  
@@ -198,88 +132,23 @@ int main()
             break;
         }
 
-        if(events.type == ALLEGRO_EVENT_KEY_DOWN){
-            int keycode = events.keyboard.keycode;
-            switch (keycode) {
-                case ALLEGRO_KEY_W: {
-                    keys[W] = true;
-                    current_frame_y = 0;
-                    break;
-                }
-                case ALLEGRO_KEY_S: {
-                    keys[S] = true;
-                    current_frame_y = 32 * 2;
-                    break;
-                }
-                case ALLEGRO_KEY_A: {
-                    keys[A] = true;
-                    current_frame_y = 32 * 3;
-                    break;
-                }
-                case ALLEGRO_KEY_D: {
-                    keys[D] = true;
-                    current_frame_y = 32;
-                    break;
-                }
-            }
-                
-        }
-        if(events.type == ALLEGRO_EVENT_KEY_UP) {
-            int keycode = events.keyboard.keycode;
-
-            if (keycode == ALLEGRO_KEY_ESCAPE) {
-                break;
-            }
-            switch (keycode) {
-                case ALLEGRO_KEY_W: {
-                    keys[W] = false;
-                    break;
-                }
-                case ALLEGRO_KEY_S: {
-                    keys[S] = false;
-                    break;
-                }
-                case ALLEGRO_KEY_A: {
-                    keys[A] = false;
-                    break;
-                }
-                case ALLEGRO_KEY_D: {
-                    keys[D] = false;
-                    break;
-                }
-            }
-        }
-
-        if (keys[W] == true || keys[S] == true || keys[A] == true || keys[D] == true) {
-            frame += 0.04f;
-            if (frame > 3) {
-                frame -= 3;
-            }
-        }else frame = 1;
-
-        if (!colideBorda(posX, posY)) {
-            posX += keys[D];
-            posX -= keys[A];
-            posY += keys[S];
-            posY -= keys[W];
-            subir(posX, posY, dy);
-        }
-  
+        galinha.move(events);
         al_identity_transform(&transf);
         al_translate_transform(&transf, 0, dy);
+        al_use_transform(&transf);
+
+        galinha.reScreen(dy);
 
         if(fusca.active){
             fusca.move();
-            fusca.colide(posX, posY);
+            fusca.colide(galinha);
         }
 
-        al_use_transform(&transf);
         if (redraw) {
             DrawMap();
-            al_draw_bitmap_region(galinha, 32 * (int)frame, current_frame_y, 32, 32, posX, posY, 0);
+            galinha.draw();
             fusca.draw();
-
-
+            galinha.drawHeart(dy);
             al_flip_display();
             redraw = false;
         }
@@ -289,6 +158,7 @@ int main()
         al_destroy_bitmap(blocos[i]);
     }
 
+    galinha.destroy();
     fusca.destroy();
     al_destroy_display(display);
 
