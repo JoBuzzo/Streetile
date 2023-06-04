@@ -1,18 +1,17 @@
-class FocusRS :public Carro {
+class Cadillac :public Carro {
 public:
-	FocusRS() {
-		w = 136;
+	Cadillac() {
+		w = 175;
 		h = 64;
-		speed = 4;
+		speed = 2;
 		posX = 1;
 		posY = 41 * 32;
 		active = true;
 		left = true;
-		sprite = al_load_bitmap("sprites/focusRS.png");
+		sprite = al_load_bitmap("sprites/cadillac.png");
 	}
-
 	void DefaultDimension() {
-		w = 136;
+		w = 175;
 		h = 64;
 	}
 	void setDimension(int w, int h) {
@@ -20,7 +19,7 @@ public:
 		this->h = h;
 	}
 	void DefaultSpeed() {
-		speed = 5;
+		speed = 2;
 	}
 	void setSpeed(float speed) {
 		this->speed = speed;

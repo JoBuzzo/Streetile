@@ -22,7 +22,7 @@ public:
 	void DefaultSpeed() {
 		speed = 3;
 	}
-	void setSpeed(int speed) {
+	void setSpeed(float speed) {
 		this->speed = speed;
 	}
 };

@@ -1,8 +1,8 @@
 class Carro {
 public:
 	ALLEGRO_BITMAP* sprite;
-	int w, h, speed, posX, posY;
-
+	int w, h, posX, posY;
+	float speed;
 	bool left, active;
 
 	Carro() : sprite(nullptr), w(0), h(0), speed(0), posX(0), posY(0), left(false), active(false) {

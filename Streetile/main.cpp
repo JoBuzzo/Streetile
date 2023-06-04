@@ -73,6 +73,7 @@ ALLEGRO_BITMAP* blocos[7] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 #include"Perua.h"
 #include"Van.h"
 #include"FocusRS.h"
+#include"Cadillac.h"
 
 void DrawMap() {
     for (int i = 0; i < HMAPA; i++) {
@@ -142,27 +143,34 @@ int main()
 
 
     Galinha galinha;
+
     Fusca fusca;
 
     Fusca fusca1;
+    fusca1.posX = 5 * 32;
     fusca1.posY = 38 * 32;
-    fusca1.posX = 40 * 32;
-    fusca1.left = false;
-    fusca1.setSpeed(-2);
+ 
 
     Perua perua;
     perua.posX = BLOCKSIZE * 20;
 
-    Perua perua1;
-    perua1.posY = 38 * 32;
-    perua1.posX = 25 * 32;
-    perua1.left = false;
-    perua1.setSpeed(-2);
 
     Van van;
+    van.posY = 38 * 32;
 
     FocusRS focus;
+    focus.setSpeed(-4);
+    focus.left = false;
     focus.posY = 35 * 32;
+    focus.posX = 40 * 32;
+
+
+    Cadillac cadillac;
+    cadillac.setSpeed(-2);
+    cadillac.left = false;
+    cadillac.posY = 32 * 32;
+    cadillac.posX = 40 * 32;
+
 
     ALLEGRO_TIMER* timer = al_create_timer(1.0/90.0);
     ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
@@ -201,20 +209,20 @@ int main()
             fusca1.collide(galinha);
             perua.move();
             perua.collide(galinha);
-            perua1.move();
-            perua1.collide(galinha);
             van.move();
             van.collide(galinha);
             focus.move();
             focus.collide(galinha);
+            cadillac.move();
+            cadillac.collide(galinha);
         }
         else {
             fusca.active = false;
             fusca1.active = false;
             perua.active = false;
-            perua1.active = false;
             van.active = false;
             focus.active = false;
+            cadillac.active = false;
         }
 
 
@@ -224,9 +232,9 @@ int main()
             fusca.draw();
             fusca1.draw();
             perua.draw();
-            perua1.draw();
             van.draw();
             focus.draw();
+            cadillac.draw();
 
             galinha.drawHeart(dy);
             al_flip_display();
@@ -242,10 +250,9 @@ int main()
     fusca.destroy();
     fusca1.destroy();
     perua.destroy();
-    perua1.destroy();
     van.destroy();
     focus.destroy();
-
+    cadillac.destroy();
     al_destroy_display(display);
 
 
