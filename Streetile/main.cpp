@@ -7,35 +7,11 @@
 
 #define BLOCKSIZE 32
 #define WMAPA 40
-#define HMAPA 50
+#define HMAPA 25
 #define SCREENWIDTH BLOCKSIZE*WMAPA
 #define SCREENHEIGHT BLOCKSIZE*25
 
 int mapa[HMAPA][WMAPA] = {
-    { 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4 },
-    { 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4 },
-    { 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4 },
-    { 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4 },
-    { 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4 },//calçada
-    { 2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2 },//sarjeta cima
-    { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-    { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-    { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },//rua
-    { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-    { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-    { 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3 },//sarjeta baixo
-    { 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4 },
-    { 2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2 },//sarjeta cima
-    { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-    { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-    { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },//rua
-    { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-    { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-    { 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3 },//sarjeta baixo
-    { 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4 },//calçada
-    { 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4 },//calçada
-    { 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4 },
-    { 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4 },
 
     { 6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6 },//checkpoint
 
@@ -63,7 +39,6 @@ int mapa[HMAPA][WMAPA] = {
     { 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4 },
     { 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4 },
     { 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4 },//calçada
-    { 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4 },
 };
 ALLEGRO_BITMAP* blocos[7] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 
@@ -75,6 +50,7 @@ ALLEGRO_BITMAP* blocos[7] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 #include"FocusRS.h"
 #include"Cadillac.h"
 #include"Mustang.h"
+#include"IceCreamTruck.h"
 
 void DrawMap() {
     for (int i = 0; i < HMAPA; i++) {
@@ -84,7 +60,7 @@ void DrawMap() {
     }
 }
 
-bool reScreen(float& tela, Galinha galinha) {
+bool reScreen(Galinha galinha) {
 
     int dx = galinha.posX / BLOCKSIZE;
     int dy = galinha.posY / BLOCKSIZE;
@@ -92,27 +68,20 @@ bool reScreen(float& tela, Galinha galinha) {
     int dy1 = (galinha.posY + 32) / BLOCKSIZE;
 
     if (mapa[dy][dx] == 6) {
-        tela += 25 * BLOCKSIZE;
-        for (dx = 0; dx < WMAPA; dx++)
-            mapa[dy][dx] = 4;
+
+
         return true;
     }
     else if (mapa[dy][dx1] == 6) {
-        tela += 25 * BLOCKSIZE;
-        for (dx = 0; dx < WMAPA; dx++)
-            mapa[dy][dx] = 4;
+
         return true;
     }
     else if (mapa[dy1][dx] == 6) {
-        tela += 25 * BLOCKSIZE;
-        for (dx = 0; dx < WMAPA; dx++)
-            mapa[dy][dx] = 4;
+
         return true;
     }
     else if (mapa[dy1][dx1] == 6) {
-        tela += 25 * BLOCKSIZE;
-        for (dx = 0; dx < WMAPA; dx++)
-            mapa[dy][dx] = 4;
+
         return true;
     }
     return false;
@@ -146,49 +115,52 @@ int main()
     Galinha galinha;
 
     Fusca fusca;
-
-    Fusca fusca1;
-    fusca1.posX = 5 * 32;
-    fusca1.posY = 38 * 32;
- 
+    fusca.setPosY(17);
+    fusca.setPosX(40);
 
     Perua perua;
-    perua.posX = BLOCKSIZE * 20;
+    perua.setPosY(17);
+    perua.setPosX(15);
 
+
+    Fusca fusca1;
+    fusca1.setPosY(14);
+    fusca1.setSpeed(3);
+    fusca1.setPosX(34);
 
     Van van;
-    van.posY = 38 * 32;
+    van.setPosY(14);
+
 
     FocusRS focus;
-    focus.setSpeed(-4);
-    focus.left = false;
-    focus.posY = 35 * 32;
-    focus.posX = 40 * 32;
+    focus.setDirection();
+    focus.setPosY(11);
+
+    Mustang mustang;
+    mustang.setDirection();
+    mustang.setPosY(11);
+    mustang.setPosX(30);
 
 
     Cadillac cadillac;
-    cadillac.setSpeed(-2);
-    cadillac.left = false;
-    cadillac.posY = 32 * 32;
-    cadillac.posX = 40 * 32;
+    cadillac.setDirection();
+    cadillac.setPosY(8);
+
+    IceCreamTruck truck;
+    truck.setDirection();
+    truck.setPosY(7);
+    truck.setPosX(30);
 
 
-    Mustang mustang;
-    mustang.setSpeed(-3);
-    mustang.left = false;
-    mustang.posY = 35 * 32;
-    mustang.posX = 40 * 32;
+    
+
 
     ALLEGRO_TIMER* timer = al_create_timer(1.0/90.0);
     ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
     al_register_event_source(event_queue, al_get_display_event_source(display));
     al_register_event_source(event_queue, al_get_keyboard_event_source());
-
-    ALLEGRO_TRANSFORM transf;
  
-    float dy = SCREENHEIGHT - HMAPA * BLOCKSIZE;
-
     bool redraw = true;
     al_start_timer(timer);
 
@@ -205,11 +177,7 @@ int main()
 
         galinha.move(events);
 
-        al_identity_transform(&transf);
-        al_translate_transform(&transf, 0, dy);
-        al_use_transform(&transf);
-
-        if (!reScreen(dy, galinha)) {
+        if (!reScreen(galinha)) {
             fusca.move();
             fusca.collide(galinha);
             fusca1.move();
@@ -224,6 +192,8 @@ int main()
             cadillac.collide(galinha);
             mustang.move();
             mustang.collide(galinha);
+            truck.move();
+            truck.collide(galinha);
         }
         else {
             fusca.active = false;
@@ -233,6 +203,8 @@ int main()
             focus.active = false;
             cadillac.active = false;
             mustang.active = false;
+            truck.active = false;
+
         }
 
 
@@ -246,8 +218,9 @@ int main()
             focus.draw();
             cadillac.draw();
             mustang.draw();
+            truck.draw();
 
-            galinha.drawHeart(dy);
+            galinha.drawHeart();
             al_flip_display();
             redraw = false;
         }
@@ -265,6 +238,7 @@ int main()
     focus.destroy();
     cadillac.destroy();
     mustang.destroy();
+    truck.destroy();
     al_destroy_display(display);
 
 

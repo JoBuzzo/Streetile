@@ -1,11 +1,23 @@
 class Carro {
 public:
 	ALLEGRO_BITMAP* sprite;
-	int w, h, posX, posY;
+	int w, h, posX, posY, delay;
 	float speed;
 	bool left, active;
 
-	Carro() : sprite(nullptr), w(0), h(0), speed(0), posX(0), posY(0), left(false), active(false) {
+	Carro() : sprite(nullptr), w(0), h(0), speed(0), posX(0), posY(0), delay(200), left(false), active(false) {
+	}
+
+	void setPosX(int value) {
+		posX = BLOCKSIZE * value;
+	}
+	void setPosY(int value) {
+		posY = BLOCKSIZE * value;
+	}
+	void setDirection() {
+		posX = BLOCKSIZE * WMAPA;
+		left = !left;
+		speed = -speed;
 	}
 
 	virtual void draw() {
@@ -24,12 +36,20 @@ public:
 	}
 
 	virtual void move() {
-		posX += speed;
-		if (posX > WMAPA * BLOCKSIZE - 32) {
-			posX = 0;
+		if (delay > 0) {
+			delay--;
 		}
-		else if (posX < 0) {
-			posX = 40 * (BLOCKSIZE -1);
+		else {
+			posX += speed;
+
+			if (posX > WMAPA * BLOCKSIZE) {
+				posX = -w;
+				delay = 200;
+			}
+			else if (posX + w < 0) {
+				posX = WMAPA * BLOCKSIZE;
+				delay = 200;
+			}
 		}
 	}
 

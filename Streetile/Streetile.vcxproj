@@ -152,6 +152,7 @@
     <ClInclude Include="FocusRS.h" />
     <ClInclude Include="Fusca.h" />
     <ClInclude Include="Galinha.h" />
+    <ClInclude Include="IceCreamTruck.h" />
     <ClInclude Include="Mustang.h" />
     <ClInclude Include="Perua.h" />
     <ClInclude Include="Van.h" />

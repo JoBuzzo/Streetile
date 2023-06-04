@@ -5,10 +5,11 @@ public:
 		h = 64;
 		speed = 4;
 		posX = 1;
-		posY = 41 * 32;
+		posY = 1;
 		active = true;
 		left = true;
 		sprite = al_load_bitmap("sprites/focusRS.png");
+		delay = 50 * speed;
 	}
 
 	void DefaultDimension() {
@@ -20,7 +21,7 @@ public:
 		this->h = h;
 	}
 	void DefaultSpeed() {
-		speed = 5;
+		speed = 4;
 	}
 	void setSpeed(float speed) {
 		this->speed = speed;

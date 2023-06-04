@@ -31,10 +31,10 @@ public:
 
 		al_draw_bitmap_region(sprite, 32 * (int)frame, current_frame_y, 32, 32, posX, posY, 0);
 	}
-    void drawHeart(float dy) {
+    void drawHeart() {
         int x = 10;
         for (int i = 0; i < life; i++) {
-            al_draw_bitmap(heart, x, -dy, 0);
+            al_draw_bitmap(heart, x, 5, 0);
             x += 40;
         }
     }
