@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="Cadillac.h" />
     <ClInclude Include="Carro.h" />
+    <ClInclude Include="DodgeRAM.h" />
     <ClInclude Include="FocusRS.h" />
     <ClInclude Include="Fusca.h" />
     <ClInclude Include="Galinha.h" />

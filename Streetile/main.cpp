@@ -51,6 +51,7 @@ ALLEGRO_BITMAP* blocos[7] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 #include"Cadillac.h"
 #include"Mustang.h"
 #include"IceCreamTruck.h"
+#include"DodgeRAM.h"
 
 void DrawMap() {
     for (int i = 0; i < HMAPA; i++) {
@@ -140,10 +141,15 @@ int main()
     focus.setDirection();
     focus.setPosY(11);
 
+    DodgeRAM dodge;
+    dodge.setDirection();
+    dodge.setPosY(11);
+    dodge.setPosX(5);
+
     Mustang mustang;
     mustang.setDirection();
     mustang.setPosY(11);
-    mustang.setPosX(30);
+    mustang.setPosX(20);
 
 
     Cadillac cadillac;
@@ -200,6 +206,8 @@ int main()
             truck.collide(galinha);
             mustang1.move();
             mustang1.collide(galinha);
+            dodge.move();
+            dodge.collide(galinha);
         }
         else {
             fusca.active = false;
@@ -211,6 +219,7 @@ int main()
             mustang.active = false;
             truck.active = false;
             mustang1.active = false;
+            dodge.active = false;
         }
 
 
@@ -226,6 +235,7 @@ int main()
             mustang.draw();
             truck.draw();
             mustang1.draw();
+            dodge.draw();
 
             galinha.drawHeart();
             al_flip_display();
@@ -247,6 +257,8 @@ int main()
     mustang.destroy();
     truck.destroy();
     mustang1.destroy();
+    dodge.destroy();
+
     al_destroy_display(display);
 
 
