@@ -3,7 +3,7 @@ public:
 
 	DodgeRAM() {
 		w = 148;
-		h = 70;
+		h = 80;
 		speed = 4;
 		posX = 1;
 		posY = 1;
