@@ -74,6 +74,7 @@ ALLEGRO_BITMAP* blocos[7] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 #include"Van.h"
 #include"FocusRS.h"
 #include"Cadillac.h"
+#include"Mustang.h"
 
 void DrawMap() {
     for (int i = 0; i < HMAPA; i++) {
@@ -172,6 +173,12 @@ int main()
     cadillac.posX = 40 * 32;
 
 
+    Mustang mustang;
+    mustang.setSpeed(-3);
+    mustang.left = false;
+    mustang.posY = 35 * 32;
+    mustang.posX = 40 * 32;
+
     ALLEGRO_TIMER* timer = al_create_timer(1.0/90.0);
     ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
@@ -192,7 +199,7 @@ int main()
         if (events.type == ALLEGRO_EVENT_TIMER) {
             redraw = true;
         }
-        if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE || galinha.life == 0) {
+        if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
             break;
         }
 
@@ -215,6 +222,8 @@ int main()
             focus.collide(galinha);
             cadillac.move();
             cadillac.collide(galinha);
+            mustang.move();
+            mustang.collide(galinha);
         }
         else {
             fusca.active = false;
@@ -223,6 +232,7 @@ int main()
             van.active = false;
             focus.active = false;
             cadillac.active = false;
+            mustang.active = false;
         }
 
 
@@ -235,6 +245,7 @@ int main()
             van.draw();
             focus.draw();
             cadillac.draw();
+            mustang.draw();
 
             galinha.drawHeart(dy);
             al_flip_display();
@@ -253,6 +264,7 @@ int main()
     van.destroy();
     focus.destroy();
     cadillac.destroy();
+    mustang.destroy();
     al_destroy_display(display);
 
 
