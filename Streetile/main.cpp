@@ -72,6 +72,7 @@ ALLEGRO_BITMAP* blocos[7] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 #include"Fusca.h"
 #include"Perua.h"
 #include"Van.h"
+#include"FocusRS.h"
 
 void DrawMap() {
     for (int i = 0; i < HMAPA; i++) {
@@ -150,7 +151,7 @@ int main()
     fusca1.setSpeed(-2);
 
     Perua perua;
-    perua.posX = BLOCKSIZE * 10;
+    perua.posX = BLOCKSIZE * 20;
 
     Perua perua1;
     perua1.posY = 38 * 32;
@@ -160,6 +161,8 @@ int main()
 
     Van van;
 
+    FocusRS focus;
+    focus.posY = 35 * 32;
 
     ALLEGRO_TIMER* timer = al_create_timer(1.0/90.0);
     ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
@@ -202,6 +205,8 @@ int main()
             perua1.collide(galinha);
             van.move();
             van.collide(galinha);
+            focus.move();
+            focus.collide(galinha);
         }
         else {
             fusca.active = false;
@@ -209,6 +214,7 @@ int main()
             perua.active = false;
             perua1.active = false;
             van.active = false;
+            focus.active = false;
         }
 
 
@@ -220,6 +226,7 @@ int main()
             perua.draw();
             perua1.draw();
             van.draw();
+            focus.draw();
 
             galinha.drawHeart(dy);
             al_flip_display();
@@ -237,6 +244,7 @@ int main()
     perua.destroy();
     perua1.destroy();
     van.destroy();
+    focus.destroy();
 
     al_destroy_display(display);
 

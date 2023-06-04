@@ -148,6 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Carro.h" />
+    <ClInclude Include="FocusRS.h" />
     <ClInclude Include="Fusca.h" />
     <ClInclude Include="Galinha.h" />
     <ClInclude Include="Perua.h" />
