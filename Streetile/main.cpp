@@ -126,11 +126,12 @@ int main()
 
     Fusca fusca1;
     fusca1.setPosY(14);
-    fusca1.setSpeed(3);
+    fusca1.setSpeed(4);
     fusca1.setPosX(34);
 
     Van van;
     van.setPosY(14);
+    van.setSpeed(4);
 
     Mustang mustang1(true);
     mustang1.setPosY(14);
@@ -159,7 +160,7 @@ int main()
     IceCreamTruck truck;
     truck.setDirection();
     truck.setPosY(7);
-    truck.setPosX(30);
+    truck.setPosX(20);
 
 
     

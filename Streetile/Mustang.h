@@ -4,16 +4,18 @@ public:
 	Mustang(bool gt = NULL) {
 		w = 150;
 		h = 64;
-		speed = 4;
 		posX = 1;
 		posY = 1;
 		active = true;
 		left = true;
 		if (gt) {
 			sprite = al_load_bitmap("sprites/mustangGT.png");
+			speed = 5;
+
 		}
 		else {
 			sprite = al_load_bitmap("sprites/mustang.png");
+			speed = 4;
 		}
 		delay = 50 * speed;
 	}
