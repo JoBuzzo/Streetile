@@ -1,16 +1,23 @@
 class Mustang :public Carro {
 public:
-	Mustang() {
-		w = 96;
+
+	Mustang(bool gt = NULL) {
+		w = 150;
 		h = 64;
 		speed = 4;
 		posX = 1;
 		posY = 1;
 		active = true;
 		left = true;
-		sprite = al_load_bitmap("sprites/mustang.png");
+		if (gt) {
+			sprite = al_load_bitmap("sprites/mustangGT.png");
+		}
+		else {
+			sprite = al_load_bitmap("sprites/mustang.png");
+		}
 		delay = 50 * speed;
 	}
+
 	void DefaultDimension() {
 		w = 96;
 		h = 64;

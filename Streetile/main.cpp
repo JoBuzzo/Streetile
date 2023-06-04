@@ -131,6 +131,10 @@ int main()
     Van van;
     van.setPosY(14);
 
+    Mustang mustang1(true);
+    mustang1.setPosY(14);
+    mustang1.setPosX(28);
+
 
     FocusRS focus;
     focus.setDirection();
@@ -194,6 +198,8 @@ int main()
             mustang.collide(galinha);
             truck.move();
             truck.collide(galinha);
+            mustang1.move();
+            mustang1.collide(galinha);
         }
         else {
             fusca.active = false;
@@ -204,7 +210,7 @@ int main()
             cadillac.active = false;
             mustang.active = false;
             truck.active = false;
-
+            mustang1.active = false;
         }
 
 
@@ -219,6 +225,7 @@ int main()
             cadillac.draw();
             mustang.draw();
             truck.draw();
+            mustang1.draw();
 
             galinha.drawHeart();
             al_flip_display();
@@ -239,6 +246,7 @@ int main()
     cadillac.destroy();
     mustang.destroy();
     truck.destroy();
+    mustang1.destroy();
     al_destroy_display(display);
 
 
