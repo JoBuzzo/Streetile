@@ -26,14 +26,14 @@ public:
 	virtual void move() {
 		posX += speed;
 		if (posX > WMAPA * BLOCKSIZE - 32) {
-			active = false;
+			posX = 1;
 		}
 		else if (posX < 0) {
-			active = false;
+			posX = 40 * (BLOCKSIZE -1);
 		}
 	}
 
-	virtual void colide(Galinha &galinha) {
+	virtual void collide(Galinha &galinha) {
 		// Calcular as coordenadas dos cantos do carro
 		int carroEsq = posX;
 		int carroDir = posX + w;

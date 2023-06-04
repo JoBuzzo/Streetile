@@ -150,6 +150,7 @@
     <ClInclude Include="Carro.h" />
     <ClInclude Include="Fusca.h" />
     <ClInclude Include="Galinha.h" />
+    <ClInclude Include="Perua.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

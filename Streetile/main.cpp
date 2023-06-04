@@ -1,9 +1,10 @@
 #include<allegro5/allegro5.h>
 #include<allegro5/allegro_primitives.h>
 #include<allegro5/allegro_image.h>
-#include <allegro5/allegro_ttf.h>
-#include <allegro5/allegro_font.h>
-#include <iostream>
+#include<allegro5/allegro_ttf.h>
+#include<allegro5/allegro_font.h>
+#include<iostream>
+
 #define BLOCKSIZE 32
 #define WMAPA 40
 #define HMAPA 50
@@ -69,6 +70,7 @@ ALLEGRO_BITMAP* blocos[7] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 #include"Galinha.h"
 #include"Carro.h"
 #include"Fusca.h"
+#include"Perua.h"
 
 void DrawMap() {
     for (int i = 0; i < HMAPA; i++) {
@@ -76,6 +78,40 @@ void DrawMap() {
             al_draw_bitmap(blocos[mapa[i][j]], j * BLOCKSIZE, i * BLOCKSIZE, 0);
         }
     }
+}
+
+bool reScreen(float& tela, Galinha galinha) {
+
+    int dx = galinha.posX / BLOCKSIZE;
+    int dy = galinha.posY / BLOCKSIZE;
+    int dx1 = (galinha.posX + 32) / BLOCKSIZE;
+    int dy1 = (galinha.posY + 32) / BLOCKSIZE;
+
+    if (mapa[dy][dx] == 6) {
+        tela += 25 * BLOCKSIZE;
+        for (dx = 0; dx < WMAPA; dx++)
+            mapa[dy][dx] = 4;
+        return true;
+    }
+    else if (mapa[dy][dx1] == 6) {
+        tela += 25 * BLOCKSIZE;
+        for (dx = 0; dx < WMAPA; dx++)
+            mapa[dy][dx] = 4;
+        return true;
+    }
+    else if (mapa[dy1][dx] == 6) {
+        tela += 25 * BLOCKSIZE;
+        for (dx = 0; dx < WMAPA; dx++)
+            mapa[dy][dx] = 4;
+        return true;
+    }
+    else if (mapa[dy1][dx1] == 6) {
+        tela += 25 * BLOCKSIZE;
+        for (dx = 0; dx < WMAPA; dx++)
+            mapa[dy][dx] = 4;
+        return true;
+    }
+    return false;
 }
 
 int main()
@@ -105,8 +141,21 @@ int main()
 
     Galinha galinha;
     Fusca fusca;
+    Fusca fusca1;
 
+    fusca1.posY = 38 * 32;
+    fusca1.posX = 40 * 32;
+    fusca1.left = false;
+    fusca1.setSpeed(-2);
 
+    Perua perua;
+    perua.posX = BLOCKSIZE * 10;
+
+    Perua perua1;
+    perua1.posY = 38 * 32;
+    perua1.posX = 25 * 32;
+    perua1.left = false;
+    perua1.setSpeed(-2);
 
     ALLEGRO_TIMER* timer = al_create_timer(1.0/90.0);
     ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
@@ -128,26 +177,40 @@ int main()
         if (events.type == ALLEGRO_EVENT_TIMER) {
             redraw = true;
         }
-        if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+        if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE || galinha.life == 0) {
             break;
         }
 
         galinha.move(events);
+
         al_identity_transform(&transf);
         al_translate_transform(&transf, 0, dy);
         al_use_transform(&transf);
 
-        galinha.reScreen(dy);
-
-        if(fusca.active){
+        if (!reScreen(dy, galinha)) {
             fusca.move();
-            fusca.colide(galinha);
+            fusca.collide(galinha);
+            fusca1.move();
+            fusca1.collide(galinha);
+            perua.move();
+            perua.collide(galinha);
+            perua1.move();
+            perua1.collide(galinha);
         }
+        else {
+            fusca.active = false;
+            fusca1.active = false;
+        }
+
 
         if (redraw) {
             DrawMap();
             galinha.draw();
             fusca.draw();
+            fusca1.draw();
+            perua.draw();
+            perua1.draw();
+
             galinha.drawHeart(dy);
             al_flip_display();
             redraw = false;
@@ -160,6 +223,10 @@ int main()
 
     galinha.destroy();
     fusca.destroy();
+    fusca1.destroy();
+    perua.destroy();
+    perua1.destroy();
+
     al_destroy_display(display);
 
 

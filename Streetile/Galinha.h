@@ -44,7 +44,7 @@ public:
     void destroy() {
         al_destroy_bitmap(sprite);
     }
-    bool colideBorda() {
+    bool borderCollide() {
         if (posX > WMAPA * BLOCKSIZE - 32) {
             posX -= 2;
             return true;
@@ -68,34 +68,6 @@ public:
         }
 
         return false;
-    }
-    void reScreen(float& tela) {
-
-        int dx = posX / BLOCKSIZE;
-        int dy = posY / BLOCKSIZE;
-        int dx1 = (posX + 32) / BLOCKSIZE;
-        int dy1 = (posY + 32) / BLOCKSIZE;
-
-        if (mapa[dy][dx] == 6) {
-            tela += 25 * BLOCKSIZE;
-            for (dx = 0; dx < WMAPA; dx++)
-                mapa[dy][dx] = 4;
-        }
-        else if (mapa[dy][dx1] == 6) {
-            tela += 25 * BLOCKSIZE;
-            for (dx = 0; dx < WMAPA; dx++)
-                mapa[dy][dx] = 4;
-        }
-        else if (mapa[dy1][dx] == 6) {
-            tela += 25 * BLOCKSIZE;
-            for (dx = 0; dx < WMAPA; dx++)
-                mapa[dy][dx] = 4;
-        }
-        else if (mapa[dy1][dx1] == 6) {
-            tela += 25 * BLOCKSIZE;
-            for (dx = 0; dx < WMAPA; dx++)
-                mapa[dy][dx] = 4;
-        }
     }
 	void move(ALLEGRO_EVENT events) {
         if (events.type == ALLEGRO_EVENT_KEY_DOWN) {
@@ -146,7 +118,7 @@ public:
             }
             }
         }
-        if (!colideBorda()) {
+        if (!borderCollide()) {
             posX += keys[D];
             posX -= keys[A];
             posY += keys[S];
