@@ -26,7 +26,7 @@ public:
 	virtual void move() {
 		posX += speed;
 		if (posX > WMAPA * BLOCKSIZE - 32) {
-			posX = 1;
+			posX = 0;
 		}
 		else if (posX < 0) {
 			posX = 40 * (BLOCKSIZE -1);

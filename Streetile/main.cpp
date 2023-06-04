@@ -71,6 +71,7 @@ ALLEGRO_BITMAP* blocos[7] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 #include"Carro.h"
 #include"Fusca.h"
 #include"Perua.h"
+#include"Van.h"
 
 void DrawMap() {
     for (int i = 0; i < HMAPA; i++) {
@@ -141,8 +142,8 @@ int main()
 
     Galinha galinha;
     Fusca fusca;
-    Fusca fusca1;
 
+    Fusca fusca1;
     fusca1.posY = 38 * 32;
     fusca1.posX = 40 * 32;
     fusca1.left = false;
@@ -156,6 +157,9 @@ int main()
     perua1.posX = 25 * 32;
     perua1.left = false;
     perua1.setSpeed(-2);
+
+    Van van;
+
 
     ALLEGRO_TIMER* timer = al_create_timer(1.0/90.0);
     ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
@@ -196,10 +200,15 @@ int main()
             perua.collide(galinha);
             perua1.move();
             perua1.collide(galinha);
+            van.move();
+            van.collide(galinha);
         }
         else {
             fusca.active = false;
             fusca1.active = false;
+            perua.active = false;
+            perua1.active = false;
+            van.active = false;
         }
 
 
@@ -210,6 +219,7 @@ int main()
             fusca1.draw();
             perua.draw();
             perua1.draw();
+            van.draw();
 
             galinha.drawHeart(dy);
             al_flip_display();
@@ -226,6 +236,7 @@ int main()
     fusca1.destroy();
     perua.destroy();
     perua1.destroy();
+    van.destroy();
 
     al_destroy_display(display);
 
