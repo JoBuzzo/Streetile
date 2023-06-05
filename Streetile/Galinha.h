@@ -69,8 +69,10 @@ public:
 
         return false;
     }
-	void keyDOWN(int keycode) {
-        switch (keycode) {
+	void move(ALLEGRO_EVENT events) {
+        if (events.type == ALLEGRO_EVENT_KEY_DOWN) {
+            int keycode = events.keyboard.keycode;
+            switch (keycode) {
             case ALLEGRO_KEY_W: {
                 keys[W] = true;
                 current_frame_y = 0;
@@ -91,11 +93,13 @@ public:
                 current_frame_y = 32;
                 break;
             }
+            }
+
         }
-        
-	}
-    void keyUP(int keycode) {
-        switch (keycode) {
+        if (events.type == ALLEGRO_EVENT_KEY_UP) {
+            int keycode = events.keyboard.keycode;
+
+            switch (keycode) {
             case ALLEGRO_KEY_W: {
                 keys[W] = false;
                 break;
@@ -112,17 +116,15 @@ public:
                 keys[D] = false;
                 break;
             }
+            }
         }
-    }
-    void move() {
         if (!borderCollide()) {
-
             posX += keys[D];
             posX -= keys[A];
             posY += keys[S];
             posY -= keys[W];
         }
-    }
+	}
     void loseLife() {
         if(life > 0)
             life--;

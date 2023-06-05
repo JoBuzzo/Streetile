@@ -3,7 +3,6 @@
 #include<allegro5/allegro_image.h>
 #include<allegro5/allegro_ttf.h>
 #include<allegro5/allegro_font.h>
-#include <allegro5/allegro_native_dialog.h>
 #include<iostream>
 
 #define BLOCKSIZE 32
@@ -89,39 +88,6 @@ bool reScreen(Galinha galinha) {
     return false;
 }
 
-bool toggleFullScreen(ALLEGRO_DISPLAY*& display, bool isFullScreen, ALLEGRO_TIMER*& timer, ALLEGRO_EVENT_QUEUE*& event_queue) {
-    isFullScreen = !isFullScreen;
-
-    int windowFlags = al_get_display_flags(display);
-    bool isAlreadyFullScreen = (windowFlags & ALLEGRO_FULLSCREEN) != 0;
-
-    al_destroy_display(display);
-    al_destroy_timer(timer);
-    al_destroy_event_queue(event_queue);
-
-    if (isFullScreen && !isAlreadyFullScreen) {
-        al_set_new_display_flags(ALLEGRO_FULLSCREEN);
-    }
-    else if (!isFullScreen && isAlreadyFullScreen) {
-        al_set_new_display_flags(ALLEGRO_WINDOWED);
-    }
-
-
-    display = al_create_display(SCREENWIDTH, SCREENHEIGHT);
-    al_set_window_title(display, "atravesse a rua!");
-    al_set_window_position(display, 0, 0);
-
-    timer = al_create_timer(1.0 / 90.0);
-    event_queue = al_create_event_queue();
-    al_register_event_source(event_queue, al_get_timer_event_source(timer));
-    al_register_event_source(event_queue, al_get_display_event_source(display));
-    al_register_event_source(event_queue, al_get_keyboard_event_source());
-
-    al_start_timer(timer);
-
-    return isFullScreen;
-}
-
 int main()
 {
     al_init();
@@ -132,14 +98,10 @@ int main()
     al_install_keyboard();
 
 
-
     ALLEGRO_DISPLAY* display;
     display = al_create_display(SCREENWIDTH, SCREENHEIGHT);
-
     al_set_window_title(display, "atravesse a rua!");
-    al_set_window_position(display, 0, 0);
-
-    bool isFullScreen = false;
+    al_set_window_position(display, 350, 0);
 
 
     blocos[0] = al_load_bitmap("tiles/rua.png");
@@ -201,6 +163,8 @@ int main()
     truck.setPosX(20);
 
 
+    
+
 
     ALLEGRO_TIMER* timer = al_create_timer(1.0/90.0);
     ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
@@ -221,25 +185,8 @@ int main()
         if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
             break;
         }
-        else if (events.type == ALLEGRO_EVENT_KEY_DOWN) {
-            int keycode = events.keyboard.keycode;
-            galinha.keyDOWN(keycode);
 
-            if (events.keyboard.keycode == ALLEGRO_KEY_F11) {
-                isFullScreen = toggleFullScreen(display, isFullScreen, timer, event_queue);
-            }
-
-        }
-        else {
-            if (events.type == ALLEGRO_EVENT_KEY_UP) {
-                int keycode = events.keyboard.keycode;
-                galinha.keyUP(keycode);
-            }
-            
-        }
-
-         galinha.move();
-        
+        galinha.move(events);
 
         if (!reScreen(galinha)) {
             fusca.move();
@@ -277,7 +224,7 @@ int main()
         }
 
 
-        if (redraw && al_is_event_queue_empty(event_queue)) {
+        if (redraw) {
             DrawMap();
             galinha.draw();
             fusca.draw();
