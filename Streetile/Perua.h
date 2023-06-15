@@ -8,7 +8,8 @@ public:
 		posY = 1;
 		active = true;
 		left = true;
-		sprite = al_load_bitmap("sprites/perua.png");
+		urlSprite = "sprites/perua.png";
+		sprite = al_load_bitmap(urlSprite);
 		delay = 50 * speed;
 	}
 	void DefaultDimension() {

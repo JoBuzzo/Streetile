@@ -2,6 +2,8 @@ class Galinha {
 public:
 	ALLEGRO_BITMAP* sprite;
     ALLEGRO_BITMAP* heart;
+    char urlSprite[100] = "sprites/galinha.png";
+    char urlHeart[100] = "sprites/heart.png";
 
 
 	int w, h, posX, posY, current_frame_y, life;
@@ -9,11 +11,16 @@ public:
     enum KEYS { W, S, A, D };
 	bool keys[4] = { false, false, false, false };
 
+    void reloadBitMap() {
+        sprite = al_load_bitmap(urlSprite);
+        heart = al_load_bitmap(urlHeart);
+    }
 	Galinha() {
 		w = 32;
 		h = 32;
-		sprite = al_load_bitmap("sprites/galinha.png");
-        heart = al_load_bitmap("sprites/heart.png");
+
+		sprite = al_load_bitmap(urlSprite);
+        heart = al_load_bitmap(urlHeart);
 		posX = (WMAPA * BLOCKSIZE / 2) - 16;
 		posY = HMAPA * BLOCKSIZE - 64;
 		current_frame_y = 0;

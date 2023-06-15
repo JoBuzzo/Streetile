@@ -5,6 +5,7 @@
 #include<allegro5/allegro_font.h>
 #include <allegro5/allegro_native_dialog.h>
 #include<iostream>
+#include<conio.h>
 
 #define BLOCKSIZE 32
 #define WMAPA 40
@@ -53,6 +54,7 @@ ALLEGRO_BITMAP* blocos[7] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 #include"Mustang.h"
 #include"IceCreamTruck.h"
 #include"DodgeRAM.h"
+#include"Mapa.h"
 
 void DrawMap() {
     for (int i = 0; i < HMAPA; i++) {
@@ -89,15 +91,14 @@ bool reScreen(Galinha galinha) {
     return false;
 }
 
-bool toggleFullScreen(ALLEGRO_DISPLAY*& display, bool isFullScreen, ALLEGRO_TIMER*& timer, ALLEGRO_EVENT_QUEUE*& event_queue) {
-    isFullScreen = !isFullScreen;
+bool toggleFullScreen(ALLEGRO_DISPLAY*& display, bool isFullScreen) {
+     isFullScreen = !isFullScreen;
 
     int windowFlags = al_get_display_flags(display);
     bool isAlreadyFullScreen = (windowFlags & ALLEGRO_FULLSCREEN) != 0;
 
     al_destroy_display(display);
-    al_destroy_timer(timer);
-    al_destroy_event_queue(event_queue);
+
 
     if (isFullScreen && !isAlreadyFullScreen) {
         al_set_new_display_flags(ALLEGRO_FULLSCREEN);
@@ -107,17 +108,10 @@ bool toggleFullScreen(ALLEGRO_DISPLAY*& display, bool isFullScreen, ALLEGRO_TIME
     }
 
 
-    display = al_create_display(SCREENWIDTH, SCREENHEIGHT);
-    al_set_window_title(display, "atravesse a rua!");
-    al_set_window_position(display, 0, 0);
+   display = al_create_display(SCREENWIDTH, SCREENHEIGHT);
+   al_set_window_title(display, "atravesse a rua!");
+   al_set_window_position(display, 0, 0);
 
-    timer = al_create_timer(1.0 / 90.0);
-    event_queue = al_create_event_queue();
-    al_register_event_source(event_queue, al_get_timer_event_source(timer));
-    al_register_event_source(event_queue, al_get_display_event_source(display));
-    al_register_event_source(event_queue, al_get_keyboard_event_source());
-
-    al_start_timer(timer);
 
     return isFullScreen;
 }
@@ -130,8 +124,6 @@ int main()
     al_init_primitives_addon();
     al_init_image_addon();
     al_install_keyboard();
-
-
 
     ALLEGRO_DISPLAY* display;
     display = al_create_display(SCREENWIDTH, SCREENHEIGHT);
@@ -226,7 +218,30 @@ int main()
             galinha.keyDOWN(keycode);
 
             if (events.keyboard.keycode == ALLEGRO_KEY_F11) {
-                isFullScreen = toggleFullScreen(display, isFullScreen, timer, event_queue);
+                isFullScreen = toggleFullScreen(display, isFullScreen);
+                if (!isFullScreen) {
+                    al_register_event_source(event_queue, al_get_display_event_source(display));
+                }
+
+                fusca.reloadBitMap();
+                fusca1.reloadBitMap();
+                perua.reloadBitMap();
+                van.reloadBitMap();
+                focus.reloadBitMap();
+                cadillac.reloadBitMap();
+                mustang.reloadBitMap();
+                truck.reloadBitMap();
+                mustang1.reloadBitMap();
+                dodge.reloadBitMap();
+                galinha.reloadBitMap();
+                
+                blocos[0] = al_load_bitmap("tiles/rua.png");
+                blocos[1] = al_load_bitmap("tiles/rua_tartaruga.png");
+                blocos[2] = al_load_bitmap("tiles/calcada_lado_rua_baixo.png");
+                blocos[3] = al_load_bitmap("tiles/calcada_lado_rua_cima.png");
+                blocos[4] = al_load_bitmap("tiles/calcada_meio.png");
+                blocos[5] = al_load_bitmap("tiles/rua_divisa.png");
+                blocos[6] = al_load_bitmap("tiles/calcada_meio.png");
             }
 
         }

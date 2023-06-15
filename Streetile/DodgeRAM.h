@@ -9,7 +9,8 @@ public:
 		posY = 1;
 		active = true;
 		left = true;
-		sprite = al_load_bitmap("sprites/dodgeRAM.png");
+		urlSprite = "sprites/dodgeRAM.png";
+		sprite = al_load_bitmap(urlSprite);
 		delay = 50 * speed;
 	}
 
