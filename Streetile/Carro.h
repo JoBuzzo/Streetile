@@ -1,11 +1,13 @@
 class Carro {
 public:
 	ALLEGRO_BITMAP* sprite;
+	const char* urlSprite;
 	int w, h, posX, posY, delay;
 	float speed;
 	bool left, active;
+	
 
-	Carro() : sprite(nullptr), w(0), h(0), speed(0), posX(0), posY(0), delay(200), left(false), active(false) {
+	Carro() : sprite(nullptr), w(0), h(0), speed(0), posX(0), posY(0), delay(200), left(false), active(false), urlSprite("teste") {
 	}
 
 	void setPosX(int value) {
@@ -75,4 +77,8 @@ public:
 		}
 	}
 
+	virtual void reloadBitMap()
+	{
+		sprite = al_load_bitmap(urlSprite);
+	}
 };

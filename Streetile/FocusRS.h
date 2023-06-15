@@ -8,7 +8,8 @@ public:
 		posY = 1;
 		active = true;
 		left = true;
-		sprite = al_load_bitmap("sprites/focusRS.png");
+		urlSprite = "sprites/focusRS.png";
+		sprite = al_load_bitmap(urlSprite);
 		delay = 50 * speed;
 	}
 

@@ -9,12 +9,14 @@ public:
 		active = true;
 		left = true;
 		if (gt) {
-			sprite = al_load_bitmap("sprites/mustangGT.png");
+			urlSprite = "sprites/mustangGT.png";
+			sprite = al_load_bitmap(urlSprite);
 			speed = 5;
 
 		}
 		else {
-			sprite = al_load_bitmap("sprites/mustang.png");
+			urlSprite = "sprites/mustang.png";
+			sprite = al_load_bitmap(urlSprite);
 			speed = 4;
 		}
 		delay = 50 * speed;
