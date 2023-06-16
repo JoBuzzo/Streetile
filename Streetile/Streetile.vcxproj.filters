@@ -53,8 +53,5 @@
     <ClInclude Include="DodgeRAM.h">
       <Filter>Arquivos de Origem</Filter>
     </ClInclude>
-    <ClInclude Include="Mapa.h">
-      <Filter>Arquivos de Origem</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

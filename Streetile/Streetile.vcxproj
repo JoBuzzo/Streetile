@@ -154,7 +154,6 @@
     <ClInclude Include="Fusca.h" />
     <ClInclude Include="Galinha.h" />
     <ClInclude Include="IceCreamTruck.h" />
-    <ClInclude Include="Mapa.h" />
     <ClInclude Include="Mustang.h" />
     <ClInclude Include="Perua.h" />
     <ClInclude Include="Van.h" />

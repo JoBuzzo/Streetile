@@ -29,7 +29,7 @@ public:
 	}
 	void draw() {
 		if (keys[W] == true || keys[S] == true || keys[A] == true || keys[D] == true) {
-			frame += 0.04f;
+			frame += 0.1f;
 			if (frame > 3) {
 				frame -= 3;
 			}
@@ -123,7 +123,6 @@ public:
     }
     void move() {
         if (!borderCollide()) {
-
             posX += keys[D];
             posX -= keys[A];
             posY += keys[S];

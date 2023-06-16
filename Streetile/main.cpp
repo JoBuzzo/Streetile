@@ -3,7 +3,7 @@
 #include<allegro5/allegro_image.h>
 #include<allegro5/allegro_ttf.h>
 #include<allegro5/allegro_font.h>
-#include <allegro5/allegro_native_dialog.h>
+#include<allegro5/allegro_native_dialog.h>
 #include<iostream>
 #include<conio.h>
 
@@ -54,7 +54,7 @@ ALLEGRO_BITMAP* blocos[7] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 #include"Mustang.h"
 #include"IceCreamTruck.h"
 #include"DodgeRAM.h"
-#include"Mapa.h"
+
 
 void DrawMap() {
     for (int i = 0; i < HMAPA; i++) {
@@ -193,7 +193,7 @@ int main()
     truck.setPosX(20);
 
 
-
+    ALLEGRO_FONT* font = al_load_font("font.ttf", 25, 0);
     ALLEGRO_TIMER* timer = al_create_timer(1.0/90.0);
     ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
@@ -222,6 +222,13 @@ int main()
                 if (!isFullScreen) {
                     al_register_event_source(event_queue, al_get_display_event_source(display));
                 }
+                blocos[0] = al_load_bitmap("tiles/rua.png");
+                blocos[1] = al_load_bitmap("tiles/rua_tartaruga.png");
+                blocos[2] = al_load_bitmap("tiles/calcada_lado_rua_baixo.png");
+                blocos[3] = al_load_bitmap("tiles/calcada_lado_rua_cima.png");
+                blocos[4] = al_load_bitmap("tiles/calcada_meio.png");
+                blocos[5] = al_load_bitmap("tiles/rua_divisa.png");
+                blocos[6] = al_load_bitmap("tiles/calcada_meio.png");
 
                 fusca.reloadBitMap();
                 fusca1.reloadBitMap();
@@ -235,13 +242,7 @@ int main()
                 dodge.reloadBitMap();
                 galinha.reloadBitMap();
                 
-                blocos[0] = al_load_bitmap("tiles/rua.png");
-                blocos[1] = al_load_bitmap("tiles/rua_tartaruga.png");
-                blocos[2] = al_load_bitmap("tiles/calcada_lado_rua_baixo.png");
-                blocos[3] = al_load_bitmap("tiles/calcada_lado_rua_cima.png");
-                blocos[4] = al_load_bitmap("tiles/calcada_meio.png");
-                blocos[5] = al_load_bitmap("tiles/rua_divisa.png");
-                blocos[6] = al_load_bitmap("tiles/calcada_meio.png");
+                
             }
 
         }
@@ -305,6 +306,7 @@ int main()
             truck.draw();
             mustang1.draw();
             dodge.draw();
+            al_draw_text(font, al_map_rgb(255, 255, 255), BLOCKSIZE * 35, 7, 0, "Fase 1");
 
             galinha.drawHeart();
             al_flip_display();
