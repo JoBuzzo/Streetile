@@ -38,42 +38,46 @@ public:
 	}
 
 	virtual void move() {
-		if (delay > 0) {
-			delay--;
-		}
-		else {
-			posX += speed;
-
-			if (posX > WMAPA * BLOCKSIZE) {
-				posX = -w;
-				delay = 200;
+		if (active) {
+			if (delay > 0) {
+				delay--;
 			}
-			else if (posX + w < 0) {
-				posX = WMAPA * BLOCKSIZE;
-				delay = 200;
+			else {
+				posX += speed;
+
+				if (posX > WMAPA * BLOCKSIZE) {
+					posX = -w;
+					delay = 200;
+				}
+				else if (posX + w < 0) {
+					posX = WMAPA * BLOCKSIZE;
+					delay = 200;
+				}
 			}
 		}
 	}
 
 	virtual void collide(Galinha &galinha) {
-		// Calcular as coordenadas dos cantos do carro
-		int carroEsq = posX + 16;
-		int carroDir = posX + w - 16;
-		int carroTopo = posY + 16;
-		int carroBase = posY + h - 16;
+		if (active) {
+			// Calcular as coordenadas dos cantos do carro
+			int carroEsq = posX + 16;
+			int carroDir = posX + w - 16;
+			int carroTopo = posY + 16;
+			int carroBase = posY + h - 16;
 
 
-		// Calcular as coordenadas dos cantos da galinha
-		int galinhaEsq = galinha.posX;
-		int galinhaDir = galinha.posX + 32;
-		int galinhaTopo = galinha.posY;
-		int galinhaBase = galinha.posY + 32;
-		
-		if (carroEsq < galinhaDir && carroDir > galinhaEsq && carroTopo < galinhaBase && carroBase > galinhaTopo) {
-			galinha.posX = (WMAPA * BLOCKSIZE / 2) - 16;
-			galinha.posY = HMAPA * BLOCKSIZE - 64;
-			galinha.loseLife();
-		
+			// Calcular as coordenadas dos cantos da galinha
+			int galinhaEsq = galinha.posX;
+			int galinhaDir = galinha.posX + 32;
+			int galinhaTopo = galinha.posY;
+			int galinhaBase = galinha.posY + 32;
+
+			if (carroEsq < galinhaDir && carroDir > galinhaEsq && carroTopo < galinhaBase && carroBase > galinhaTopo) {
+				galinha.posX = (WMAPA * BLOCKSIZE / 2) - 16;
+				galinha.posY = HMAPA * BLOCKSIZE - 64;
+				galinha.loseLife();
+
+			}
 		}
 	}
 
